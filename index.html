@@ -2,122 +2,199 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <title>Sistema de Incidencias</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Incidencias</title>
 </head>
+
 <body>
 
-    <h1>Sistema de Gestión de Incidencias</h1>
-    <p>Mesa de soporte técnico</p>
+    <!-- Encabezado -->
+    <header>
+        <h1>Sistema de Gestión de Incidencias</h1>
+        <p>Mesa de soporte técnico</p>
+    </header>
 
     <hr>
 
     <!-- Inicio de sesión -->
-    <h2>Iniciar sesión</h2>
+    <section id="login">
+        <h2>Iniciar sesión</h2>
 
-    <form>
-        <label>Correo electrónico:</label><br>
-        <input type="email" placeholder="Ingrese su correo"><br><br>
+        <form id="login-form">
 
-        <label>Contraseña:</label><br>
-        <input type="password" placeholder="Ingrese su contraseña"><br><br>
+            <div>
+                <label for="email">Correo electrónico:</label><br>
+                <input type="email" id="email" name="email"
+                    placeholder="nombre@institucion.edu" required>
+            </div>
 
-        <button type="submit">Ingresar</button>
-    </form>
+            <br>
 
-    <hr>
+            <div>
+                <label for="password">Contraseña:</label><br>
+                <input type="password" id="password" name="password"
+                    placeholder="Ingrese su contraseña" required>
+            </div>
 
-    <!-- Menú principal -->
-    <h2>Menú principal</h2>
+            <br>
 
-    <button>Incidencias</button>
-    <button>Nueva incidencia</button>
-    <button>Cerrar sesión</button>
+            <button type="submit">Ingresar</button>
 
-    <hr>
-
-    <!-- Listado de incidencias -->
-    <h2>Listado de incidencias</h2>
-
-    <p>Consultar las incidencias registradas.</p>
-
-    <label>Filtrar por estado:</label>
-    <select>
-        <option>Todos</option>
-        <option>Abierta</option>
-        <option>En proceso</option>
-        <option>Resuelta</option>
-    </select>
-
-    <br><br>
-
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Incidencia</th>
-            <th>Categoría</th>
-            <th>Estado</th>
-            <th>Técnico</th>
-            <th>Fecha</th>
-        </tr>
-
-        <tr>
-            <td>1</td>
-            <td>Computadora no enciende</td>
-            <td>Hardware</td>
-            <td>Abierta</td>
-            <td>Juan</td>
-            <td>20/11/2026</td>
-        </tr>
-
-        <tr>
-            <td>2</td>
-            <td>Problema con internet</td>
-            <td>Redes</td>
-            <td>En proceso</td>
-            <td>Pedro</td>
-            <td>19/11/2026</td>
-        </tr>
-    </table>
+        </form>
+    </section>
 
     <hr>
 
-    <!-- Nueva incidencia -->
-    <h2>Registrar nueva incidencia</h2>
+    <!-- Panel principal -->
+    <main id="panel-principal">
 
-    <form>
-        <label>Título del problema:</label><br>
-        <input type="text" placeholder="Ingrese el título"><br><br>
+        <nav>
+            <h2>Menú principal</h2>
 
-        <label>Categoría:</label><br>
-        <select>
-            <option>Seleccione una categoría</option>
-            <option>Hardware</option>
-            <option>Software</option>
-            <option>Redes</option>
-        </select><br><br>
+            <ul>
+                <li><a href="#incidencias">Incidencias</a></li>
+                <li><a href="#nueva-incidencia">Nueva incidencia</a></li>
+                <li><a href="#usuario">Mi usuario</a></li>
+            </ul>
+        </nav>
 
-        <label>Descripción del problema:</label><br>
-        <textarea rows="5" cols="40"></textarea><br><br>
+        <hr>
 
-        <button type="submit">Registrar incidencia</button>
-        <button type="reset">Cancelar</button>
-    </form>
+        <!-- Listado de incidencias -->
+        <section id="incidencias">
+
+            <h2>Listado de incidencias</h2>
+
+            <p>Consultar las incidencias registradas en el sistema.</p>
+
+            <label for="estado">Filtrar por estado:</label>
+
+            <select id="estado" name="estado">
+                <option value="">Todos</option>
+                <option value="abierta">Abierta</option>
+                <option value="proceso">En proceso</option>
+                <option value="resuelta">Resuelta</option>
+            </select>
+
+            <br><br>
+
+            <table border="1">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Incidencia</th>
+                        <th>Categoría</th>
+                        <th>Estado</th>
+                        <th>Técnico</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Computadora no enciende</td>
+                        <td>Hardware</td>
+                        <td>Abierta</td>
+                        <td>Juan</td>
+                        <td>20/11/2026</td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>Problema con internet</td>
+                        <td>Redes</td>
+                        <td>En proceso</td>
+                        <td>Pedro</td>
+                        <td>19/11/2026</td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>Programa no funciona</td>
+                        <td>Software</td>
+                        <td>Resuelta</td>
+                        <td>María</td>
+                        <td>18/11/2026</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <p>Total de incidencias: 3</p>
+
+        </section>
+
+        <hr>
+
+        <!-- Registro de nueva incidencia -->
+        <section id="nueva-incidencia">
+
+            <h2>Registrar nueva incidencia</h2>
+
+            <form id="incident-form">
+
+                <div>
+                    <label for="titulo">Título del problema:</label><br>
+                    <input type="text" id="titulo" name="titulo"
+                        placeholder="Ingrese el título del problema" required>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="categoria">Categoría:</label><br>
+
+                    <select id="categoria" name="categoria" required>
+                        <option value="">Seleccione una categoría</option>
+                        <option value="hardware">Hardware</option>
+                        <option value="software">Software</option>
+                        <option value="redes">Redes</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="descripcion">Descripción del problema:</label><br>
+                    <textarea id="descripcion" name="descripcion"
+                        rows="5" cols="40"
+                        placeholder="Describa el problema..." required></textarea>
+                </div>
+
+                <br>
+
+                <button type="submit">Registrar incidencia</button>
+                <button type="reset">Limpiar formulario</button>
+
+            </form>
+
+        </section>
+
+        <hr>
+
+        <!-- Información del usuario -->
+        <section id="usuario">
+
+            <h2>Información del usuario</h2>
+
+            <p>Nombre: Usuario</p>
+            <p>Rol: Usuario de soporte</p>
+
+            <button type="button">Cerrar sesión</button>
+
+        </section>
+
+    </main>
 
     <hr>
 
-    <!-- Detalle de incidencia -->
-    <h2>Detalle de incidencia</h2>
-
-    <p>ID: 1</p>
-    <p>Título: Computadora no enciende</p>
-    <p>Categoría: Hardware</p>
-    <p>Estado: Abierta</p>
-    <p>Descripción: La computadora del aula no enciende.</p>
-
-    <hr>
-
+    <!-- Pie de página -->
     <footer>
         <p>Sistema de Gestión de Incidencias Técnicas</p>
         <p>UNQ - Desarrollo de Software 2026</p>
