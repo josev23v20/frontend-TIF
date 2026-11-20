@@ -1,485 +1,147 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Sistema de Gestión de Incidencias</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111111">
+  <meta name="description" content="Sistema de Gestión de Incidencias Técnicas">
+  <title>Incidencias — Soporte técnico</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
+<body>
+  <div id="login-view" class="login-screen">
+    <section class="login-panel">
+      <div class="brand-lockup mb-5">
+        <div class="brand-mark">IT<span>.</span></div>
+        <div>
+          <div class="brand-name">INCIDENCIAS</div>
+          <div class="brand-caption">MESA DE SOPORTE TÉCNICO</div>
+        </div>
+      </div>
+      <p class="eyebrow">SISTEMA DE GESTIÓN</p>
+      <h1 class="login-title">Todo problema<br>tiene <span>seguimiento.</span></h1>
+      <p class="login-description">Ingresá para registrar una incidencia o gestionar los casos de soporte técnico.</p>
 
-<body class="bg-light">
+      <form id="login-form" class="login-form" autocomplete="on">
+        <div class="mb-3">
+          <label for="login-email" class="form-label">Correo electrónico</label>
+          <input type="email" class="form-control form-control-lg" id="login-email" name="email" placeholder="nombre@institucion.edu" required autocomplete="username">
+        </div>
+        <div class="mb-4">
+          <label for="login-password" class="form-label">Contraseña</label>
+          <input type="password" class="form-control form-control-lg" id="login-password" name="password" placeholder="Tu contraseña" required autocomplete="current-password">
+        </div>
+        <div id="login-error" class="alert alert-danger d-none" role="alert"></div>
+        <button type="submit" class="btn btn-warning btn-lg w-100 fw-bold" id="login-submit">
+          Ingresar <span aria-hidden="true">→</span>
+        </button>
+      </form>
+      <div class="login-footnote">Acceso exclusivo para usuarios y técnicos de la institución.</div>
+    </section>
+    <aside class="login-aside">
+      <div class="aside-grid" aria-hidden="true"></div>
+      <div class="aside-content">
+        <div class="aside-index">01 / SOPORTE</div>
+        <div class="aside-headline">Menos vueltas.<br><span>Más soluciones.</span></div>
+        <div class="aside-rule"></div>
+        <p>Un espacio único para reportar, asignar y resolver problemas técnicos.</p>
+      </div>
+      <div class="aside-bottom"><span>GESTIÓN CLARA</span><span>RESPUESTA A TIEMPO</span></div>
+      <div class="aside-yellow-block"></div>
+    </aside>
+  </div>
 
-    <!-- Inicio de sesión -->
-    <div id="login-view" class="container py-5">
+  <div id="app-view" class="app-shell d-none">
+    <aside class="sidebar" id="sidebar">
+      <a class="sidebar-brand" href="#inicio" aria-label="Inicio">
+        <div class="brand-mark small-mark">IT<span>.</span></div>
+        <div><div class="brand-name">INCIDENCIAS</div><div class="brand-caption">SOPORTE TÉCNICO</div></div>
+      </a>
+      <div class="sidebar-label">MENÚ PRINCIPAL</div>
+      <nav class="sidebar-nav" aria-label="Navegación principal">
+        <button class="nav-link active" id="nav-incidents" type="button"><span class="nav-symbol">▤</span> Incidencias</button>
+        <button class="nav-link" id="nav-new" type="button"><span class="nav-symbol">＋</span> Nueva incidencia</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-status"><span class="status-dot"></span> SISTEMA OPERATIVO</div>
+        <div class="user-mini">
+          <div class="user-avatar" id="sidebar-avatar">U</div>
+          <div class="user-mini-info"><strong id="sidebar-name">Usuario</strong><span id="sidebar-role">Usuario</span></div>
+          <button class="logout-icon" id="logout-button" type="button" title="Cerrar sesión" aria-label="Cerrar sesión">↗</button>
+        </div>
+      </div>
+    </aside>
 
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-5">
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" type="button" id="mobile-menu" aria-label="Abrir menú">☰</button>
+        <div class="breadcrumb-line"><span>GESTIÓN</span><b>/</b><strong id="topbar-section">INCIDENCIAS</strong></div>
+        <div class="topbar-user"><span class="topbar-user-name" id="topbar-name">Usuario</span><span class="topbar-role" id="topbar-role">USUARIO</span></div>
+      </header>
 
-                <div class="card shadow-sm">
-                    <div class="card-body p-4">
+      <div class="content-wrap">
+        <div id="toast-area" class="toast-area" aria-live="polite"></div>
 
-                        <h1 class="text-center mb-2">
-                            Sistema de Incidencias
-                        </h1>
+        <section id="list-screen" class="content-screen">
+          <div class="page-heading">
+            <div><p class="eyebrow">CENTRO DE CONTROL</p><h1>Incidencias<span class="heading-period">.</span></h1><p class="page-subtitle" id="list-subtitle">Consultá el estado y el seguimiento de tus reportes.</p></div>
+            <button class="btn btn-warning primary-action" id="new-incident-top" type="button">＋ <span>Nueva incidencia</span></button>
+          </div>
 
-                        <p class="text-center text-muted mb-4">
-                            Mesa de soporte técnico
-                        </p>
-
-                        <h4 class="mb-3">Iniciar sesión</h4>
-
-                        <form id="login-form">
-
-                            <div class="mb-3">
-                                <label for="login-email" class="form-label">
-                                    Correo electrónico
-                                </label>
-
-                                <input
-                                    type="email"
-                                    class="form-control"
-                                    id="login-email"
-                                    name="email"
-                                    placeholder="nombre@institucion.edu"
-                                    required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="login-password" class="form-label">
-                                    Contraseña
-                                </label>
-
-                                <input
-                                    type="password"
-                                    class="form-control"
-                                    id="login-password"
-                                    name="password"
-                                    placeholder="Ingrese su contraseña"
-                                    required>
-                            </div>
-
-                            <div id="login-error" class="alert alert-danger d-none">
-                            </div>
-
-                            <button
-                                type="submit"
-                                class="btn btn-primary w-100"
-                                id="login-submit">
-                                Ingresar
-                            </button>
-
-                        </form>
-
-                    </div>
-                </div>
-
+          <div class="list-toolbar">
+            <div class="toolbar-title"><span class="toolbar-marker"></span><strong>Listado de casos</strong><span class="result-count" id="result-count">0 registros</span></div>
+            <div class="filters-row">
+              <div class="filter-control"><label for="filter-status">ESTADO</label><select id="filter-status" class="form-select form-select-sm"><option value="">Todos</option><option value="ABIERTA">Abierta</option><option value="EN PROCESO">En proceso</option><option value="RESUELTA">Resuelta</option></select></div>
+              <div class="filter-control"><label for="filter-category">CATEGORÍA</label><select id="filter-category" class="form-select form-select-sm"><option value="">Todas</option></select></div>
+              <button class="btn btn-dark btn-sm filter-clear" id="clear-filters" type="button">Limpiar</button>
             </div>
-        </div>
-
-    </div>
-
-
-    <!-- Aplicación principal -->
-    <div id="app-view" class="container-fluid d-none">
-
-        <div class="row min-vh-100">
-
-            <!-- Menú lateral -->
-            <aside class="col-md-3 col-lg-2 bg-dark text-white p-3">
-
-                <h4 class="mb-4">
-                    Incidencias
-                </h4>
-
-                <p class="small text-secondary">
-                    MENÚ PRINCIPAL
-                </p>
-
-                <nav class="nav flex-column">
-
-                    <button
-                        class="nav-link text-white text-start active"
-                        id="nav-incidents"
-                        type="button">
-                        Listado de incidencias
-                    </button>
-
-                    <button
-                        class="nav-link text-white text-start"
-                        id="nav-new"
-                        type="button">
-                        Nueva incidencia
-                    </button>
-
-                </nav>
-
-                <hr>
-
-                <div class="mt-4">
-
-                    <p class="mb-1" id="sidebar-name">
-                        Usuario
-                    </p>
-
-                    <small id="sidebar-role">
-                        Usuario
-                    </small>
-
-                    <div id="sidebar-avatar" class="mt-2">
-                        U
-                    </div>
-
-                    <button
-                        class="btn btn-outline-light btn-sm mt-3"
-                        id="logout-button"
-                        type="button">
-                        Cerrar sesión
-                    </button>
-
-                </div>
-
-            </aside>
-
-
-            <!-- Contenido principal -->
-            <main class="col-md-9 col-lg-10 p-4">
-
-                <!-- Encabezado -->
-                <header class="d-flex justify-content-between align-items-center mb-4">
-
-                    <button
-                        class="btn btn-outline-secondary d-md-none"
-                        id="mobile-menu"
-                        type="button">
-                        Menú
-                    </button>
-
-                    <h5 id="topbar-section">
-                        INCIDENCIAS
-                    </h5>
-
-                    <div>
-                        <span id="topbar-name">Usuario</span>
-                        <small id="topbar-role">USUARIO</small>
-                    </div>
-
-                </header>
-
-
-                <!-- Mensajes del sistema -->
-                <div id="toast-area" aria-live="polite"></div>
-
-
-                <!-- Listado de incidencias -->
-                <section id="list-screen" class="content-screen">
-
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-
-                        <div>
-                            <h2>Listado de incidencias</h2>
-
-                            <p id="list-subtitle" class="text-muted">
-                                Consultá las incidencias registradas.
-                            </p>
-                        </div>
-
-                        <button
-                            class="btn btn-primary"
-                            id="new-incident-top"
-                            type="button">
-                            Nueva incidencia
-                        </button>
-
-                    </div>
-
-
-                    <!-- Filtros -->
-                    <div class="card mb-3">
-
-                        <div class="card-body">
-
-                            <div class="row align-items-end">
-
-                                <div class="col-md-4 mb-2">
-
-                                    <label for="filter-status" class="form-label">
-                                        Filtrar por estado
-                                    </label>
-
-                                    <select id="filter-status" class="form-select">
-
-                                        <option value="">Todos</option>
-                                        <option value="ABIERTA">Abierta</option>
-                                        <option value="EN PROCESO">En proceso</option>
-                                        <option value="RESUELTA">Resuelta</option>
-
-                                    </select>
-
-                                </div>
-
-                                <div class="col-md-4 mb-2">
-
-                                    <label for="filter-category" class="form-label">
-                                        Filtrar por categoría
-                                    </label>
-
-                                    <select id="filter-category" class="form-select">
-                                        <option value="">Todas</option>
-                                    </select>
-
-                                </div>
-
-                                <div class="col-md-4 mb-2">
-
-                                    <button
-                                        class="btn btn-secondary"
-                                        id="clear-filters"
-                                        type="button">
-                                        Limpiar filtros
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Tabla de incidencias -->
-                    <div class="card">
-
-                        <div class="card-header d-flex justify-content-between">
-
-                            <strong>Incidencias registradas</strong>
-
-                            <span id="result-count">
-                                0 registros
-                            </span>
-
-                        </div>
-
-                        <div class="table-responsive">
-
-                            <table class="table table-striped table-hover mb-0">
-
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Incidencia</th>
-                                        <th>Categoría</th>
-                                        <th>Estado</th>
-                                        <th>Técnico</th>
-                                        <th>Fecha</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody id="incidents-table-body">
-
-                                    <tr>
-                                        <td colspan="7" class="text-center">
-                                            Cargando incidencias...
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-
-                            </table>
-
-                        </div>
-
-                        <div id="empty-state" class="text-center p-4 d-none">
-
-                            <h5>No hay incidencias</h5>
-
-                            <p class="text-muted">
-                                Todavía no se registraron incidencias.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="mt-3">
-                        Mostrando
-                        <strong id="visible-count">0</strong>
-                        incidencias
-                    </div>
-
-                </section>
-
-
-                <!-- Formulario de nueva incidencia -->
-                <section id="new-screen" class="content-screen d-none">
-
-                    <div class="mb-4">
-
-                        <h2>Nueva incidencia</h2>
-
-                        <p class="text-muted">
-                            Completá los datos para registrar un problema técnico.
-                        </p>
-
-                    </div>
-
-
-                    <div class="card">
-
-                        <div class="card-body">
-
-                            <form id="new-incident-form">
-
-                                <div class="mb-3">
-
-                                    <label for="incident-title" class="form-label">
-                                        Título del problema
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        id="incident-title"
-                                        name="title"
-                                        class="form-control"
-                                        placeholder="Ingresá el título del problema"
-                                        maxlength="255"
-                                        required>
-
-                                </div>
-
-
-                                <div class="mb-3">
-
-                                    <label for="incident-category" class="form-label">
-                                        Categoría
-                                    </label>
-
-                                    <select
-                                        id="incident-category"
-                                        name="category_id"
-                                        class="form-select"
-                                        required>
-
-                                        <option value="">
-                                            Seleccioná una categoría
-                                        </option>
-
-                                    </select>
-
-                                </div>
-
-
-                                <div class="mb-3">
-
-                                    <label for="incident-description" class="form-label">
-                                        Descripción del problema
-                                    </label>
-
-                                    <textarea
-                                        id="incident-description"
-                                        name="description"
-                                        class="form-control"
-                                        rows="5"
-                                        maxlength="5000"
-                                        placeholder="Describí el problema..."
-                                        required></textarea>
-
-                                </div>
-
-
-                                <div
-                                    id="new-incident-error"
-                                    class="alert alert-danger d-none">
-                                </div>
-
-
-                                <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    id="cancel-new">
-                                    Cancelar
-                                </button>
-
-                                <button
-                                    type="submit"
-                                    class="btn btn-primary"
-                                    id="create-incident-submit">
-                                    Registrar incidencia
-                                </button>
-
-                            </form>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                <!-- Detalle de una incidencia -->
-                <section id="detail-screen" class="content-screen d-none">
-
-                    <div class="d-flex justify-content-between mb-3">
-
-                        <button
-                            class="btn btn-outline-secondary"
-                            id="back-to-list-detail"
-                            type="button">
-                            Volver al listado
-                        </button>
-
-                        <span id="detail-id-label">
-                            CASO #—
-                        </span>
-
-                    </div>
-
-                    <div id="detail-content">
-
-                        <div class="text-center p-4">
-                            Cargando detalle...
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                <!-- Pie de página -->
-                <footer class="border-top mt-5 pt-3 text-muted">
-
-                    <p>
-                        Sistema de Gestión de Incidencias Técnicas
-                    </p>
-
-                    <small>
-                        UNQ - Desarrollo de Software 2026
-                    </small>
-
-                </footer>
-
-            </main>
-
-        </div>
-
-    </div>
-
-
-    <!-- Archivos JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="assets/js/config.js"></script>
-
-    <script src="assets/js/app.js"></script>
-
+          </div>
+
+          <div class="table-card">
+            <div class="table-responsive">
+              <table class="table incidents-table align-middle mb-0">
+                <thead><tr><th class="id-col">ID</th><th>INCIDENCIA</th><th>CATEGORÍA</th><th>ESTADO</th><th class="technician-col">TÉCNICO</th><th class="date-col">FECHA</th><th class="action-col"></th></tr></thead>
+                <tbody id="incidents-table-body"><tr><td colspan="7" class="table-message">Cargando incidencias...</td></tr></tbody>
+              </table>
+            </div>
+            <div id="empty-state" class="empty-state d-none"><div class="empty-icon">＋</div><h3>No hay incidencias</h3><p>Cuando se registren casos, aparecerán en este listado.</p></div>
+          </div>
+          <div class="list-footer"><span>Mostrando <strong id="visible-count">0</strong> incidencias</span><span>GESTIÓN DE SOPORTE <b>·</b> PANEL DE CONTROL</span></div>
+        </section>
+
+        <section id="new-screen" class="content-screen d-none">
+          <div class="page-heading compact-heading">
+            <div><p class="eyebrow">REGISTRO DE SOPORTE</p><h1>Nueva incidencia<span class="heading-period">.</span></h1><p class="page-subtitle">Describí el problema para que el equipo técnico pueda ayudarte.</p></div>
+            <button class="btn btn-outline-dark back-button" id="back-to-list-new" type="button">← Volver al listado</button>
+          </div>
+          <div class="form-card">
+            <div class="form-card-heading"><div><span class="form-step">01</span><strong>Datos del problema</strong></div><span class="required-note">* CAMPOS OBLIGATORIOS</span></div>
+            <form id="new-incident-form">
+              <div class="row g-4">
+                <div class="col-12"><label for="incident-title" class="form-label">Título del problema <span>*</span></label><input id="incident-title" name="title" class="form-control" maxlength="255" placeholder="Ej. La computadora del aula no enciende" required></div>
+                <div class="col-12 col-md-6"><label for="incident-category" class="form-label">Categoría <span>*</span></label><select id="incident-category" name="category_id" class="form-select" required><option value="">Seleccioná una categoría</option></select></div>
+                <div class="col-12"><label for="incident-description" class="form-label">Descripción detallada <span>*</span></label><textarea id="incident-description" name="description" class="form-control" rows="5" maxlength="5000" placeholder="Contanos qué pasó, desde cuándo ocurre y dónde se encuentra el equipo..." required></textarea><div class="field-hint">Incluí toda la información que pueda ayudar a identificar el inconveniente.</div></div>
+              </div>
+              <div id="new-incident-error" class="alert alert-danger d-none mt-4" role="alert"></div>
+              <div class="form-actions"><button class="btn btn-outline-dark" id="cancel-new" type="button">Cancelar</button><button class="btn btn-warning fw-bold" id="create-incident-submit" type="submit">Registrar incidencia <span>→</span></button></div>
+            </form>
+          </div>
+        </section>
+
+        <section id="detail-screen" class="content-screen d-none">
+          <div class="detail-topline"><button class="text-back" id="back-to-list-detail" type="button">← Volver a incidencias</button><span id="detail-id-label">CASO #—</span></div>
+          <div id="detail-content"><div class="table-message">Cargando detalle...</div></div>
+        </section>
+      </div>
+      <footer class="app-footer"><span>SISTEMA DE GESTIÓN DE INCIDENCIAS TÉCNICAS</span><span>UNQ <b>·</b> DESARROLLO DE SOFTWARE 2026</span></footer>
+    </main>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
 </body>
-
 </html>
