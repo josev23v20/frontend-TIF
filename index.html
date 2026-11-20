@@ -1,204 +1,485 @@
 
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Sistema de Gestión de Incidencias</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
-
-    <!-- Encabezado -->
-    <header>
-        <h1>Sistema de Gestión de Incidencias</h1>
-        <p>Mesa de soporte técnico</p>
-    </header>
-
-    <hr>
+<body class="bg-light">
 
     <!-- Inicio de sesión -->
-    <section id="login">
-        <h2>Iniciar sesión</h2>
+    <div id="login-view" class="container py-5">
 
-        <form id="login-form">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
 
-            <div>
-                <label for="email">Correo electrónico:</label><br>
-                <input type="email" id="email" name="email"
-                    placeholder="nombre@institucion.edu" required>
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+
+                        <h1 class="text-center mb-2">
+                            Sistema de Incidencias
+                        </h1>
+
+                        <p class="text-center text-muted mb-4">
+                            Mesa de soporte técnico
+                        </p>
+
+                        <h4 class="mb-3">Iniciar sesión</h4>
+
+                        <form id="login-form">
+
+                            <div class="mb-3">
+                                <label for="login-email" class="form-label">
+                                    Correo electrónico
+                                </label>
+
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    id="login-email"
+                                    name="email"
+                                    placeholder="nombre@institucion.edu"
+                                    required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="login-password" class="form-label">
+                                    Contraseña
+                                </label>
+
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="login-password"
+                                    name="password"
+                                    placeholder="Ingrese su contraseña"
+                                    required>
+                            </div>
+
+                            <div id="login-error" class="alert alert-danger d-none">
+                            </div>
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary w-100"
+                                id="login-submit">
+                                Ingresar
+                            </button>
+
+                        </form>
+
+                    </div>
+                </div>
+
             </div>
+        </div>
 
-            <br>
+    </div>
 
-            <div>
-                <label for="password">Contraseña:</label><br>
-                <input type="password" id="password" name="password"
-                    placeholder="Ingrese su contraseña" required>
-            </div>
 
-            <br>
+    <!-- Aplicación principal -->
+    <div id="app-view" class="container-fluid d-none">
 
-            <button type="submit">Ingresar</button>
+        <div class="row min-vh-100">
 
-        </form>
-    </section>
+            <!-- Menú lateral -->
+            <aside class="col-md-3 col-lg-2 bg-dark text-white p-3">
 
-    <hr>
+                <h4 class="mb-4">
+                    Incidencias
+                </h4>
 
-    <!-- Panel principal -->
-    <main id="panel-principal">
+                <p class="small text-secondary">
+                    MENÚ PRINCIPAL
+                </p>
 
-        <nav>
-            <h2>Menú principal</h2>
+                <nav class="nav flex-column">
 
-            <ul>
-                <li><a href="#incidencias">Incidencias</a></li>
-                <li><a href="#nueva-incidencia">Nueva incidencia</a></li>
-                <li><a href="#usuario">Mi usuario</a></li>
-            </ul>
-        </nav>
+                    <button
+                        class="nav-link text-white text-start active"
+                        id="nav-incidents"
+                        type="button">
+                        Listado de incidencias
+                    </button>
 
-        <hr>
+                    <button
+                        class="nav-link text-white text-start"
+                        id="nav-new"
+                        type="button">
+                        Nueva incidencia
+                    </button>
 
-        <!-- Listado de incidencias -->
-        <section id="incidencias">
+                </nav>
 
-            <h2>Listado de incidencias</h2>
+                <hr>
 
-            <p>Consultar las incidencias registradas en el sistema.</p>
+                <div class="mt-4">
 
-            <label for="estado">Filtrar por estado:</label>
+                    <p class="mb-1" id="sidebar-name">
+                        Usuario
+                    </p>
 
-            <select id="estado" name="estado">
-                <option value="">Todos</option>
-                <option value="abierta">Abierta</option>
-                <option value="proceso">En proceso</option>
-                <option value="resuelta">Resuelta</option>
-            </select>
+                    <small id="sidebar-role">
+                        Usuario
+                    </small>
 
-            <br><br>
+                    <div id="sidebar-avatar" class="mt-2">
+                        U
+                    </div>
 
-            <table border="1">
+                    <button
+                        class="btn btn-outline-light btn-sm mt-3"
+                        id="logout-button"
+                        type="button">
+                        Cerrar sesión
+                    </button>
 
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Incidencia</th>
-                        <th>Categoría</th>
-                        <th>Estado</th>
-                        <th>Técnico</th>
-                        <th>Fecha</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Computadora no enciende</td>
-                        <td>Hardware</td>
-                        <td>Abierta</td>
-                        <td>Juan</td>
-                        <td>20/11/2026</td>
-                    </tr>
-
-                    <tr>
-                        <td>2</td>
-                        <td>Problema con internet</td>
-                        <td>Redes</td>
-                        <td>En proceso</td>
-                        <td>Pedro</td>
-                        <td>19/11/2026</td>
-                    </tr>
-
-                    <tr>
-                        <td>3</td>
-                        <td>Programa no funciona</td>
-                        <td>Software</td>
-                        <td>Resuelta</td>
-                        <td>María</td>
-                        <td>18/11/2026</td>
-                    </tr>
-                </tbody>
-
-            </table>
-
-            <p>Total de incidencias: 3</p>
-
-        </section>
-
-        <hr>
-
-        <!-- Registro de nueva incidencia -->
-        <section id="nueva-incidencia">
-
-            <h2>Registrar nueva incidencia</h2>
-
-            <form id="incident-form">
-
-                <div>
-                    <label for="titulo">Título del problema:</label><br>
-                    <input type="text" id="titulo" name="titulo"
-                        placeholder="Ingrese el título del problema" required>
                 </div>
 
-                <br>
+            </aside>
 
-                <div>
-                    <label for="categoria">Categoría:</label><br>
 
-                    <select id="categoria" name="categoria" required>
-                        <option value="">Seleccione una categoría</option>
-                        <option value="hardware">Hardware</option>
-                        <option value="software">Software</option>
-                        <option value="redes">Redes</option>
-                        <option value="otros">Otros</option>
-                    </select>
-                </div>
+            <!-- Contenido principal -->
+            <main class="col-md-9 col-lg-10 p-4">
 
-                <br>
+                <!-- Encabezado -->
+                <header class="d-flex justify-content-between align-items-center mb-4">
 
-                <div>
-                    <label for="descripcion">Descripción del problema:</label><br>
-                    <textarea id="descripcion" name="descripcion"
-                        rows="5" cols="40"
-                        placeholder="Describa el problema..." required></textarea>
-                </div>
+                    <button
+                        class="btn btn-outline-secondary d-md-none"
+                        id="mobile-menu"
+                        type="button">
+                        Menú
+                    </button>
 
-                <br>
+                    <h5 id="topbar-section">
+                        INCIDENCIAS
+                    </h5>
 
-                <button type="submit">Registrar incidencia</button>
-                <button type="reset">Limpiar formulario</button>
+                    <div>
+                        <span id="topbar-name">Usuario</span>
+                        <small id="topbar-role">USUARIO</small>
+                    </div>
 
-            </form>
+                </header>
 
-        </section>
 
-        <hr>
+                <!-- Mensajes del sistema -->
+                <div id="toast-area" aria-live="polite"></div>
 
-        <!-- Información del usuario -->
-        <section id="usuario">
 
-            <h2>Información del usuario</h2>
+                <!-- Listado de incidencias -->
+                <section id="list-screen" class="content-screen">
 
-            <p>Nombre: Usuario</p>
-            <p>Rol: Usuario de soporte</p>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
 
-            <button type="button">Cerrar sesión</button>
+                        <div>
+                            <h2>Listado de incidencias</h2>
 
-        </section>
+                            <p id="list-subtitle" class="text-muted">
+                                Consultá las incidencias registradas.
+                            </p>
+                        </div>
 
-    </main>
+                        <button
+                            class="btn btn-primary"
+                            id="new-incident-top"
+                            type="button">
+                            Nueva incidencia
+                        </button>
 
-    <hr>
+                    </div>
 
-    <!-- Pie de página -->
-    <footer>
-        <p>Sistema de Gestión de Incidencias Técnicas</p>
-        <p>UNQ - Desarrollo de Software 2026</p>
-    </footer>
+
+                    <!-- Filtros -->
+                    <div class="card mb-3">
+
+                        <div class="card-body">
+
+                            <div class="row align-items-end">
+
+                                <div class="col-md-4 mb-2">
+
+                                    <label for="filter-status" class="form-label">
+                                        Filtrar por estado
+                                    </label>
+
+                                    <select id="filter-status" class="form-select">
+
+                                        <option value="">Todos</option>
+                                        <option value="ABIERTA">Abierta</option>
+                                        <option value="EN PROCESO">En proceso</option>
+                                        <option value="RESUELTA">Resuelta</option>
+
+                                    </select>
+
+                                </div>
+
+                                <div class="col-md-4 mb-2">
+
+                                    <label for="filter-category" class="form-label">
+                                        Filtrar por categoría
+                                    </label>
+
+                                    <select id="filter-category" class="form-select">
+                                        <option value="">Todas</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="col-md-4 mb-2">
+
+                                    <button
+                                        class="btn btn-secondary"
+                                        id="clear-filters"
+                                        type="button">
+                                        Limpiar filtros
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Tabla de incidencias -->
+                    <div class="card">
+
+                        <div class="card-header d-flex justify-content-between">
+
+                            <strong>Incidencias registradas</strong>
+
+                            <span id="result-count">
+                                0 registros
+                            </span>
+
+                        </div>
+
+                        <div class="table-responsive">
+
+                            <table class="table table-striped table-hover mb-0">
+
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Incidencia</th>
+                                        <th>Categoría</th>
+                                        <th>Estado</th>
+                                        <th>Técnico</th>
+                                        <th>Fecha</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="incidents-table-body">
+
+                                    <tr>
+                                        <td colspan="7" class="text-center">
+                                            Cargando incidencias...
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                        <div id="empty-state" class="text-center p-4 d-none">
+
+                            <h5>No hay incidencias</h5>
+
+                            <p class="text-muted">
+                                Todavía no se registraron incidencias.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-3">
+                        Mostrando
+                        <strong id="visible-count">0</strong>
+                        incidencias
+                    </div>
+
+                </section>
+
+
+                <!-- Formulario de nueva incidencia -->
+                <section id="new-screen" class="content-screen d-none">
+
+                    <div class="mb-4">
+
+                        <h2>Nueva incidencia</h2>
+
+                        <p class="text-muted">
+                            Completá los datos para registrar un problema técnico.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-body">
+
+                            <form id="new-incident-form">
+
+                                <div class="mb-3">
+
+                                    <label for="incident-title" class="form-label">
+                                        Título del problema
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="incident-title"
+                                        name="title"
+                                        class="form-control"
+                                        placeholder="Ingresá el título del problema"
+                                        maxlength="255"
+                                        required>
+
+                                </div>
+
+
+                                <div class="mb-3">
+
+                                    <label for="incident-category" class="form-label">
+                                        Categoría
+                                    </label>
+
+                                    <select
+                                        id="incident-category"
+                                        name="category_id"
+                                        class="form-select"
+                                        required>
+
+                                        <option value="">
+                                            Seleccioná una categoría
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div class="mb-3">
+
+                                    <label for="incident-description" class="form-label">
+                                        Descripción del problema
+                                    </label>
+
+                                    <textarea
+                                        id="incident-description"
+                                        name="description"
+                                        class="form-control"
+                                        rows="5"
+                                        maxlength="5000"
+                                        placeholder="Describí el problema..."
+                                        required></textarea>
+
+                                </div>
+
+
+                                <div
+                                    id="new-incident-error"
+                                    class="alert alert-danger d-none">
+                                </div>
+
+
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    id="cancel-new">
+                                    Cancelar
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary"
+                                    id="create-incident-submit">
+                                    Registrar incidencia
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Detalle de una incidencia -->
+                <section id="detail-screen" class="content-screen d-none">
+
+                    <div class="d-flex justify-content-between mb-3">
+
+                        <button
+                            class="btn btn-outline-secondary"
+                            id="back-to-list-detail"
+                            type="button">
+                            Volver al listado
+                        </button>
+
+                        <span id="detail-id-label">
+                            CASO #—
+                        </span>
+
+                    </div>
+
+                    <div id="detail-content">
+
+                        <div class="text-center p-4">
+                            Cargando detalle...
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Pie de página -->
+                <footer class="border-top mt-5 pt-3 text-muted">
+
+                    <p>
+                        Sistema de Gestión de Incidencias Técnicas
+                    </p>
+
+                    <small>
+                        UNQ - Desarrollo de Software 2026
+                    </small>
+
+                </footer>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+    <!-- Archivos JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="assets/js/config.js"></script>
+
+    <script src="assets/js/app.js"></script>
 
 </body>
+
 </html>
