@@ -1,0 +1,127 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Incidencias</title>
+</head>
+<body>
+
+    <h1>Sistema de Gestión de Incidencias</h1>
+    <p>Mesa de soporte técnico</p>
+
+    <hr>
+
+    <!-- Inicio de sesión -->
+    <h2>Iniciar sesión</h2>
+
+    <form>
+        <label>Correo electrónico:</label><br>
+        <input type="email" placeholder="Ingrese su correo"><br><br>
+
+        <label>Contraseña:</label><br>
+        <input type="password" placeholder="Ingrese su contraseña"><br><br>
+
+        <button type="submit">Ingresar</button>
+    </form>
+
+    <hr>
+
+    <!-- Menú principal -->
+    <h2>Menú principal</h2>
+
+    <button>Incidencias</button>
+    <button>Nueva incidencia</button>
+    <button>Cerrar sesión</button>
+
+    <hr>
+
+    <!-- Listado de incidencias -->
+    <h2>Listado de incidencias</h2>
+
+    <p>Consultar las incidencias registradas.</p>
+
+    <label>Filtrar por estado:</label>
+    <select>
+        <option>Todos</option>
+        <option>Abierta</option>
+        <option>En proceso</option>
+        <option>Resuelta</option>
+    </select>
+
+    <br><br>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Incidencia</th>
+            <th>Categoría</th>
+            <th>Estado</th>
+            <th>Técnico</th>
+            <th>Fecha</th>
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td>Computadora no enciende</td>
+            <td>Hardware</td>
+            <td>Abierta</td>
+            <td>Juan</td>
+            <td>20/11/2026</td>
+        </tr>
+
+        <tr>
+            <td>2</td>
+            <td>Problema con internet</td>
+            <td>Redes</td>
+            <td>En proceso</td>
+            <td>Pedro</td>
+            <td>19/11/2026</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <!-- Nueva incidencia -->
+    <h2>Registrar nueva incidencia</h2>
+
+    <form>
+        <label>Título del problema:</label><br>
+        <input type="text" placeholder="Ingrese el título"><br><br>
+
+        <label>Categoría:</label><br>
+        <select>
+            <option>Seleccione una categoría</option>
+            <option>Hardware</option>
+            <option>Software</option>
+            <option>Redes</option>
+        </select><br><br>
+
+        <label>Descripción del problema:</label><br>
+        <textarea rows="5" cols="40"></textarea><br><br>
+
+        <button type="submit">Registrar incidencia</button>
+        <button type="reset">Cancelar</button>
+    </form>
+
+    <hr>
+
+    <!-- Detalle de incidencia -->
+    <h2>Detalle de incidencia</h2>
+
+    <p>ID: 1</p>
+    <p>Título: Computadora no enciende</p>
+    <p>Categoría: Hardware</p>
+    <p>Estado: Abierta</p>
+    <p>Descripción: La computadora del aula no enciende.</p>
+
+    <hr>
+
+    <footer>
+        <p>Sistema de Gestión de Incidencias Técnicas</p>
+        <p>UNQ - Desarrollo de Software 2026</p>
+    </footer>
+
+</body>
+</html>
