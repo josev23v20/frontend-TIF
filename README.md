@@ -18,6 +18,49 @@ informó, qué técnico se encuentra trabajando sobre cada caso y cuáles ya fue
 8. Los permisos deberán verificarse en el backend. Ocultar un botón con JavaScript no se considera
 un mecanismo de seguridad.
 
+## Requisitos
+
+- Navegador actualizado.
+- Backend Laravel levantado en `http://127.0.0.1:8000`.
+- Conexión a Internet para cargar Bootstrap, jQuery y la tipografía desde CDN.
+
+## Configuración
+
+Abrir `assets/js/config.js` y revisar la dirección de la API:
+
+```js
+window.TIF_CONFIG = {
+  API_BASE_URL: 'http://127.0.0.1:8000/api'
+};
+```
+
+Si el backend utiliza otro host o puerto, modificar ese valor. La API incluye configuración CORS para permitir las solicitudes desde el frontend local.
+
+## Ejecución en Windows
+
+1. Primero iniciar la API desde la carpeta del backend:
+
+   ```bash
+   C:\php84\php.exe artisan serve --host=127.0.0.1 --port=8000
+   ```
+
+2. Abrir otra terminal dentro de la carpeta del frontend.
+3. Iniciar un servidor estático local, por ejemplo:
+
+   ```bash
+   C:\php84\php.exe -S 127.0.0.1:5500
+   ```
+
+4. Abrir `http://127.0.0.1:5500` en el navegador.
+
+También se puede utilizar la extensión Live Server de Visual Studio Code. No es recomendable abrir `index.html` directamente con `file://`.
+
+## Usuarios de prueba
+
+| Rol | Correo | Contraseña |
+|---|---|---|
+| Usuario | `usuario@tif.com` | `password123` |
+| Técnico | `tecnico@tif.com` | `password123` |
 
 ## Funcionalidades
 
@@ -32,8 +75,8 @@ un mecanismo de seguridad.
 
 ## Flujo de trabajo esperado
 
-1. Ingresar como un usuario y registrar una incidencia.
-2. Cerrar sesión e ingresar como tecnico
+1. Ingresar como `usuario@tif.com` y registrar una incidencia.
+2. Cerrar sesión e ingresar como `tecnico@tif.com`.
 3. Abrir el caso y seleccionar **Tomar incidencia**. El estado cambia a `EN PROCESO`.
 4. Agregar comentarios durante el seguimiento.
 5. Registrar la resolución. El estado cambia a `RESUELTA`.
