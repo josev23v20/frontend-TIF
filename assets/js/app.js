@@ -156,7 +156,7 @@
 
     $('#incidents-table-body').html('<tr><td colspan="7" class="table-message">Cargando incidencias...</td></tr>');
     $('#empty-state').addClass('d-none');
-    request('GET', '/incidencias', params).done((response) => {
+    request('GET', '/incidents', params).done((response) => {
       const incidents = response.data || [];
       $('#result-count').text(`${incidents.length} ${incidents.length === 1 ? 'registro' : 'registros'}`);
       $('#visible-count').text(incidents.length);
@@ -190,7 +190,7 @@
   function createIncident(formData) {
     $('#create-incident-submit').prop('disabled', true).text('Registrando...');
     $('#new-incident-error').addClass('d-none').text('');
-    request('POST', '/incidencias', formData)
+    request('POST', '/incidents', formData)
       .done((response) => {
         toast('La incidencia fue registrada correctamente.');
         showScreen('list');
@@ -207,7 +207,7 @@
     $('#detail-content').html('<div class="table-message">Cargando detalle...</div>');
     showScreen('detail');
     currentIncidentId = Number(id);
-    request('GET', `/incidencias/${id}`).done((response) => renderDetail(response.data))
+    request('GET', `/incidents/${id}`).done((response) => renderDetail(response.data))
       .fail((xhr) => {
         $('#detail-content').html(`<div class="alert alert-danger">${escapeHtml(errorText(xhr, 'No se pudo cargar el detalle.'))}</div>`);
       });
@@ -262,7 +262,7 @@
   }
 
   function postComment(text) {
-    request('POST', `/incidencias/${currentIncidentId}/comentarios`, { comment: text })
+    request('POST', `/incidents/${currentIncidentId}/comments`, { comment: text })
       .done(() => {
         toast('Comentario publicado.');
         openIncident(currentIncidentId);
@@ -271,7 +271,7 @@
   }
 
   function takeIncident() {
-    request('PUT', `/incidencias/${currentIncidentId}/tomar`, {})
+    request('PUT', `/incidents/${currentIncidentId}/tomar`, {})
       .done(() => {
         toast('La incidencia quedó asignada a tu usuario.');
         openIncident(currentIncidentId);
@@ -281,7 +281,7 @@
   }
 
   function resolveIncident(resolution) {
-    request('PUT', `/incidencias/${currentIncidentId}/resolver`, { resolution })
+    request('PUT', `/incidents/${currentIncidentId}/resolver`, { resolution })
       .done(() => {
         toast('La incidencia se marcó como resuelta.');
         openIncident(currentIncidentId);
