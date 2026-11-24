@@ -1,4 +1,4 @@
-// Dirección base de Laravel. Cambiarla solo si se levanta la API en otro host/puerto.
+// Dirección base de Laravel desplegado en Railway.
 window.TIF_CONFIG = {
-  API_BASE_URL: 'http://127.0.0.1:8000/api'
+  API_BASE_URL: 'https://backend-tif-production.backend-tif-production.up.railway.app.railway.app/api'
 };
